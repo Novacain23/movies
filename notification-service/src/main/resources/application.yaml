@@ -1,0 +1,51 @@
+server:
+  port: 8082
+
+cloud:
+  aws:
+    region:
+      static: us-east-1
+      auto: false
+    credentials:
+      access-key: AKIAY2O3W3PRI7K3Z2IM
+      secret-key: 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
+      access-key-sqs: AKIAY2O3W3PRMHP4ZVV2
+      secret-key-sqs: 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
+    stack:
+      auto: false
+
+
+spring:
+  application:
+    name: notification-service
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/notifications
+    username: root
+    password: Softvision10
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+
+
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#eureka:
+#  client:
+#    serviceUrl:
+#      default-zone: htpp://localhost:8080/eureka
+

@@ -1,0 +1,23 @@
+server:
+  port: 8083
+
+cloud:
+  aws:
+    region:
+      static: us-east-1
+      auto: false
+    credentials:
+      access-key: AKIAY2O3W3PRMHP4ZVV2
+      secret-key: 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
+    stack:
+      auto: false
+    end-point:
+      uri: https://sqs.us-east-1.amazonaws.com/606588034018/movie-sqs
+
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
