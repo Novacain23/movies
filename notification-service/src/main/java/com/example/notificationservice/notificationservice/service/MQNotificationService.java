@@ -1,12 +1,11 @@
 package com.example.notificationservice.notificationservice.service;
 
-import com.example.notificationservice.notificationservice.model.MovieDTOScheduleInfoDTOWrapper;
-import org.springframework.amqp.core.Exchange;
+import com.example.notificationservice.notificationservice.model.MovieScheduleInfoWrapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.util.List;
 
 
 @Service
@@ -23,8 +22,8 @@ public class MQNotificationService implements NotificationService {
 
 
 
-    @Override
-    public void publishMessage(String message) {
+
+    public void publishMessage(String message, List<String> recipients) {
 
     }
 

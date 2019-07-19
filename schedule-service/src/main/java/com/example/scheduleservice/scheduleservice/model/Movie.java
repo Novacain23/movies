@@ -27,13 +27,15 @@ public class Movie {
     private String movieName;
     private Set<Genre> genres;
     private int duration;
+    private int year;
     private String director;
 
-    public Movie(int id, String movieName, Set<Genre> genres, int duration, String director) {
+    public Movie(int id, String movieName, Set<Genre> genres, int duration,int year, String director) {
         this.id = id;
         this.movieName = movieName;
         this.genres = genres;
         this.duration = duration;
+        this.year = year;
         this.director = director;
     }
 
@@ -80,6 +82,14 @@ public class Movie {
         this.director = director;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,6 +97,7 @@ public class Movie {
         Movie movie = (Movie) o;
         return id == movie.id &&
                 duration == movie.duration &&
+                year == movie.year &&
                 Objects.equals(movieName, movie.movieName) &&
                 Objects.equals(genres, movie.genres) &&
                 Objects.equals(director, movie.director);
@@ -94,7 +105,7 @@ public class Movie {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, movieName, genres, duration, director);
+        return Objects.hash(id, movieName, genres, duration, year, director);
     }
 }
 

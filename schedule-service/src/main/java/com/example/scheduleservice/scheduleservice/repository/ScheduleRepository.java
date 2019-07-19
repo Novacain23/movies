@@ -20,4 +20,7 @@ public interface ScheduleRepository extends JpaRepository<ScheduleInfo, Integer>
     @Query("Update ScheduleInfo s SET s.isSent=1 WHERE s.id=:id")
     public void setToSent(@Param("id") int id);
 
+
+    public Optional<ScheduleInfo> findByMovieName(String movieName);
+
 }

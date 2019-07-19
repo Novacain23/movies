@@ -4,6 +4,7 @@ package com.example.notificationservice.notificationservice.model;
 
 public enum Genre {
 
+    ALL,
     ACTION,
     ADVENTURE,
     ANIMATION,

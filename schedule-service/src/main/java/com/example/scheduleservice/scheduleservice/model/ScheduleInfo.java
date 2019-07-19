@@ -1,28 +1,44 @@
 package com.example.scheduleservice.scheduleservice.model;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class ScheduleInfo {
 
     @Id
     private int movieId;
+    @Column(name = "movieName")
+    private String movieName;
     @Column(name = "releaseDate")
     private Calendar releaseDate;
     @Column(name = "endDate")
     private Calendar endDate;
-    @Column(name = "region")
-    private String region;
+
+    @ElementCollection(targetClass = Region.class)
+    @CollectionTable(name = "regions", joinColumns = @JoinColumn(name = "movieId"))
+    @Column(name = "regions", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Set<Region> region;
     @Column(name = "isSent")
     private boolean isSent;
 
-    public ScheduleInfo(int movieId, Calendar releaseDate, Calendar endDate, String region) {
+    public ScheduleInfo(int movieId,String movieName, Calendar releaseDate, Calendar endDate, Set<Region> region) {
         this.movieId = movieId;
+        this.movieName = movieName;
         this.releaseDate = releaseDate;
         this.endDate = endDate;
         this.region = region;
@@ -30,6 +46,14 @@ public class ScheduleInfo {
     }
 
     public ScheduleInfo() {
+    }
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
     }
 
     public int getMovieId() {
@@ -56,11 +80,11 @@ public class ScheduleInfo {
         this.endDate = endDate;
     }
 
-    public String getRegion() {
+    public Set<Region> getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(Set<Region> region) {
         this.region = region;
     }
 
@@ -79,6 +103,7 @@ public class ScheduleInfo {
         ScheduleInfo that = (ScheduleInfo) o;
         return movieId == that.movieId &&
                 isSent == that.isSent &&
+                Objects.equals(movieName, that.movieName) &&
                 Objects.equals(releaseDate, that.releaseDate) &&
                 Objects.equals(endDate, that.endDate) &&
                 Objects.equals(region, that.region);
@@ -86,6 +111,6 @@ public class ScheduleInfo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(movieId, releaseDate, endDate, region, isSent);
+        return Objects.hash(movieId, movieName, releaseDate, endDate, region, isSent);
     }
 }
