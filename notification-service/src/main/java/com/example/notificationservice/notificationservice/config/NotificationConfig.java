@@ -18,4 +18,6 @@ public class NotificationConfig {
     public AmazonSQS getSqsClient() {
         return AmazonSQSClientBuilder.standard().withRegion("us-east-1").build();
     }
+
+
 }

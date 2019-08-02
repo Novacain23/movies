@@ -7,10 +7,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class NotificationServiceApplicationTests {
+public class NotificationSenderApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

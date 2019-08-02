@@ -10,6 +10,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -29,10 +31,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+
+
+
 @Entity
 @Table(name = "customer", schema = "customers")
 public class Customer {
     @Id
+    @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -62,33 +68,34 @@ public class Customer {
     private int maxYear;
 
     @ElementCollection(targetClass = String.class)
-    @CollectionTable(name = "directors", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "directors", joinColumns = @JoinColumn(name = "customer_id"))
     @Column(name = "directors", nullable = false)
     private List<String> directors;
 
     @ElementCollection(targetClass = Genre.class)
-    @CollectionTable(name = "genres", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "genres", joinColumns = @JoinColumn(name = "customer_id"))
     @Column(name = "genres", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Genre> genres;
 
     @ElementCollection(targetClass = Region.class)
-    @CollectionTable(name = "regions", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "regions", joinColumns = @JoinColumn(name = "customer_id"))
     @Column(name = "regions", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Region> regions;
 
-    @ElementCollection(targetClass = String.class)
-    @CollectionTable(name = "contact_options", joinColumns = @JoinColumn(name = "id"))
+    @ElementCollection(targetClass = ContactOption.class)
+    @CollectionTable(name = "contact_options", joinColumns = @JoinColumn(name = "customer_id"))
     @Column(name = "contact_options", nullable = false)
-    private List<String> contactOptions;
+    @Enumerated(EnumType.STRING)
+    private Set<ContactOption> contactOptions;
 
     @ManyToMany(cascade = {CascadeType.REMOVE,CascadeType.MERGE,CascadeType.DETACH}, fetch = FetchType.EAGER)
     @JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
     private Customer(int id, @NotEmpty String customerName, String email, String phoneNumber, String password,
-                    boolean isCorporate, Set<Genre> genres, Set<Region> regions, List<String> contactOptions
+                    boolean isCorporate, Set<Genre> genres, Set<Region> regions, Set<ContactOption> contactOptions
                     ,List<Role> roles, int minYear, int maxYear, List<String> directors) {
         this.id = id;
         this.customerName = customerName;
@@ -130,7 +137,7 @@ public class Customer {
         private int minYear;
         private int maxYear;
         private List<String> directors;
-        private List<String> contactOptions;
+        private Set<ContactOption> contactOptions;
         private List<Role> roles;
 
         public Builder(String customerName) {
@@ -173,7 +180,7 @@ public class Customer {
             this.directors = directors;
             return this;
         }
-        public Builder withContactOptions(List<String> contactOptions) {
+        public Builder withContactOptions(Set<ContactOption> contactOptions) {
             this.contactOptions = contactOptions;
             return this;
         }
@@ -185,6 +192,7 @@ public class Customer {
             Customer customer = new Customer();
             customer.customerName = this.customerName;
             customer.email = this.email;
+            customer.password = this.password;
             customer.phoneNumber = this.phoneNumber;
             customer.isCorporate = this.isCorporate;
             customer.genres = this.genres;
@@ -273,11 +281,11 @@ public class Customer {
         this.regions = regions;
     }
 
-    public List<String> getContactOptions() {
+    public Set<ContactOption> getContactOptions() {
         return contactOptions;
     }
 
-    public void setContactOptions(List<String> contactOptions) {
+    public void setContactOptions(Set<ContactOption> contactOptions) {
         this.contactOptions = contactOptions;
     }
 

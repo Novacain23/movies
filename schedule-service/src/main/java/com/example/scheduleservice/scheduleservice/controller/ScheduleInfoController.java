@@ -26,8 +26,8 @@ public class ScheduleInfoController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(value="/save",consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public void saveAndSend(@RequestBody ScheduleInfo scheduleInfo) {
-        scheduleService.saveAndSend(scheduleInfo);
+    public void saveSchedule(@RequestBody ScheduleInfo scheduleInfo) {
+        scheduleService.saveSchedule(scheduleInfo);
         System.out.println("Sent to service.");
     }
 
@@ -38,8 +38,8 @@ public class ScheduleInfoController {
 
     @PostMapping(value="/update", consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public String receiveAndSendUpdatedMovie(@RequestBody Movie movie) {
-       return scheduleService.sendUpdatedMovie(movie);
+    public void receiveAndSendUpdatedMovie(@RequestBody Movie movie) {
+        scheduleService.sendUpdatedMovie(movie);
     }
 
 

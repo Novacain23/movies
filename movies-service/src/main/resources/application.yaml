@@ -17,6 +17,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#  ldap:
+#    embedded:
+#      ldif: classpath:test-server.ldif
+#      base-dn: ou=users,dc=cluster,dc=local
+#      port: 8389
+#      url: ldap://localhost:8389/
 
 logging:
   level:

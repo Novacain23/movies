@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.print.attribute.standard.Destination;
 import java.util.Calendar;
 import java.util.Objects;
@@ -24,7 +25,8 @@ public class Notification {
     private int id;
     @Column(name = "contact_info")
     private String contactInfo;
-    @Column(name = "messageContent")
+    @Lob
+    @Column(name = "messageContent", length = 1000)
     private String messageContent;
     @Column(name = "sentTime")
     private Calendar sentTime;

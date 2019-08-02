@@ -30,10 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         http.csrf().disable()
                 .httpBasic();
-
-
-
-
     }
 
 
@@ -41,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        auth.
+                authenticationProvider(authenticationProvider());
     }
 
     @Bean

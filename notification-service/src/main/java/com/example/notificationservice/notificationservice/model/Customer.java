@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+
 public class Customer {
 
     private int id;
@@ -30,10 +31,11 @@ public class Customer {
     private boolean isCorporate;
     private Set<Genre> genres;
     private Set<Region> regions;
-    private List<String> contactOptions;
+    private Set<ContactOption> contactOptions;
     private List<Role> roles;
 
-    public Customer(int id,String customerName, String email, String phoneNumber, String password, boolean isCorporate, Set<Genre> genres, Set<Region> regions, List<String> contactOptions , List<Role> roles) {
+    public Customer(int id,String customerName, String email, String phoneNumber, String password,
+                    boolean isCorporate, Set<Genre> genres, Set<Region> regions, Set<ContactOption> contactOptions , List<Role> roles) {
         this.id = id;
         this.customerName = customerName;
         this.email = email;
@@ -133,11 +135,11 @@ public class Customer {
         this.regions = regions;
     }
 
-    public List<String> getContactOptions() {
+    public Set<ContactOption> getContactOptions() {
         return contactOptions;
     }
 
-    public void setContactOptions(List<String> contactOptions) {
+    public void setContactOptions(Set<ContactOption> contactOptions) {
         this.contactOptions = contactOptions;
     }
 

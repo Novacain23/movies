@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.sql.ResultSet;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -62,16 +63,29 @@ public class CustomerController {
 
 
     @GetMapping("/get")
-    public List<Customer> test(@RequestParam Set<Genre> genres,
-                               @RequestParam Set<Region> regions,
-                               @RequestParam int year,
-                               @RequestParam String director) {
+    public List<Customer> findCustomerByCriteria(@RequestParam Set<Genre> genres,
+                                               @RequestParam Set<Region> regions,
+                                               @RequestParam int year,
+                                               @RequestParam String director) {
         return customerService.findCustomersByCriteria(genres, regions, year, director);
     }
+
+//    @GetMapping("/get/batch")
+//    public void findCustomersByCriteriaBatch(@RequestParam Set<Genre> genres,
+//                                                  @RequestParam Set<Region> regions,
+//                                                  @RequestParam int year,
+//                                                  @RequestParam String director) {
+//         customerService.findCustomersByCriteriaByBatch(genres,regions,year,director);
+//    }
 
     @PatchMapping(value="/patch",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer patchCustomer(@RequestBody Map<String, Object> updates) {
         return customerService.patchCustomer(updates);
     }
+//
+//    @GetMapping(value = "/lots")
+//    public void createLotsOfCustomers() {
+//        customerService.createCustomers(10000);
+//    }
 }

@@ -27,11 +27,11 @@ public class AdminService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<Admin> admin = adminRepository.findByName(username);
-        if (!admin.isPresent()) {
+        Optional<Admin> retrievedAdmin = adminRepository.findByName(username);
+        if (!retrievedAdmin.isPresent()) {
             throw new UsernameNotFoundException(username);
         }
-        Admin getAdmin = admin.get();
+        Admin getAdmin = retrievedAdmin.get();
         return new AdminPrincipal(getAdmin.getName(), getAdmin.getPassword(), getAdmin.getRoles());
     }
 
@@ -42,7 +42,6 @@ public class AdminService implements UserDetailsService {
             admin.setPassword(encoder.encode(admin.getPassword()));
             admin.setRoles(Arrays.asList(roleRepository.findByRole("ADMIN")));
             return adminRepository.save(admin);
-
         }
     }
 }

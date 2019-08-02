@@ -49,8 +49,7 @@ public class CustomerServiceTest {
                 .withRegions(regions)
                 .withMinYear(1970)
                 .withMaxYear(2000)
-                .withDirectors(Arrays.asList("ALL"))
-                .withContactOptions(Arrays.asList("EMAIL")).build();
+                .withDirectors(Arrays.asList("ALL")).build();
         customer.setPassword(passwordEncoder.encode("test1234"));
         customer.setRoles(Arrays.asList(role));
         MockitoAnnotations.initMocks(this);

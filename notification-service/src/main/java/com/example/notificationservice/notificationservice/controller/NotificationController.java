@@ -2,32 +2,29 @@ package com.example.notificationservice.notificationservice.controller;
 
 
 import com.example.notificationservice.notificationservice.model.MovieScheduleInfoWrapper;
-import com.example.notificationservice.notificationservice.service.EmailService;
+import com.example.notificationservice.notificationservice.service.EmailNotificationSenderImpl;
 import com.example.notificationservice.notificationservice.service.MessageService;
-import com.example.notificationservice.notificationservice.service.NotificationService;
+import com.example.notificationservice.notificationservice.service.NotificationSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.awt.*;
 
 @RestController
 @RequestMapping("/submit")
 public class NotificationController {
 
     @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private EmailService emailService;
+    private EmailNotificationSenderImpl emailNotificationServiceImpl;
     @Autowired
     private MessageService messageService;
 //
 //    @PostMapping
 //    public void publish(@RequestBody String message) {
-//         notificationService.publishMessage(message);
+//         notificationSender.handleMessage(message);
 //    }
 
     @PostMapping("/entry")
@@ -46,13 +43,14 @@ public class NotificationController {
     }
 
 
+
 //    @GetMapping("/test")
 //    public void sendEmail() throws MessagingException, UnsupportedEncodingException {
 //        Mail mail = new Mail();
 //        mail.setMailTo("novacstoica@gmail.com");
 //        mail.setMailSubject("O mers");
 //        mail.setMailContent("A mers trimiterea.");
-//        emailService.sendEmail(mail);
+//        emailNotificationServiceImpl.sendEmail(mail);
 //    }
 
 
