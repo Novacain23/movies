@@ -6,6 +6,7 @@ import com.example.notificationservice.notificationservice.model.Customer;
 import com.example.notificationservice.notificationservice.model.MovieScheduleInfoWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
@@ -24,7 +25,8 @@ public class NotificationSenderResolver {
     @Autowired
     private Map<ContactOption, NotificationSender> senderMap;
     @Autowired
-    private ExecutorService executorService;
+    private BeanFactory beanFactory;
+
 
     private static Logger log = LoggerFactory.getLogger(NotificationSenderResolver.class);
 
@@ -39,6 +41,7 @@ public class NotificationSenderResolver {
 //        log.info("### FINISHED SENDING MOCKED EMAIL ON 10000 CUSTOMERS");
 //}
     public void resolve(List<Customer> customers, MovieScheduleInfoWrapper movieScheduleInfoWrapper) {
+        ExecutorService executorService = (ExecutorService) beanFactory.getBean("executorService",10);
         customers.forEach(c -> c.getContactOptions().forEach(option -> {
             NotificationSender sender = senderMap.get(option);
             sender.setCustomer(c);

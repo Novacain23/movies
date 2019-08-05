@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -26,8 +27,9 @@ public class AsyncConfiguration
     }
 
     @Bean(name = "executorService")
-    public ExecutorService executorService(){
-        return Executors.newFixedThreadPool(10);
+    @Scope("prototype")
+    public ExecutorService executorService(int threads){
+        return Executors.newFixedThreadPool(threads);
     }
 
 
